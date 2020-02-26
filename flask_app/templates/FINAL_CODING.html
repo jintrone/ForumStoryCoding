@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Coding</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap.css')}}""">
+    <script type = "text/javascript"
+    src = "{{ url_for('static', filename = 'jquery.js') }}" ></script> -->
+    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css" rel="stylesheet"/>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.selection/1.0.1/jquery.selection.min.js"
+            type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
+            type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+
+
+        var data = {};
+
+        var story_data = [];
+
+        var form_data = [];
+
+
+        var story_idx = 0;
+
+        var active_story = -1;
+
+
+        var posts = ["We vax fully, so maybe I don't count.\n" +
+        "But for a kid with respiratory/immune compromising issues, yes, the flu shot and pnuemococcal one would DEFINITELY be necessary in my book. Same with Pertussis. My mom had Whooping Cough at ten years old, and she was healthy and strong - it still knocked her on her butt for a MONTH. A healthy, strong ten year old, and she had THAT bad a reaction? I wouldn't even want to THINK about a kid with breathing issues getting it.\n" +
+        "And the flu shot is around 80 to 90 percent effective in preve3nting the flu. Yes, you need to get one every year, but that's because the strain of the flu that's going around CHANGES every year. If you've been being vaxed for 10 or so years, your immunity doesn't just disappear. That's not how the human immune system works. You'll still have the immunities to the older strains, so if they guess wrong, you're still somewhat protected.\n" +
+        "Plus, the shot ALSO gives some level of protection even in the cases where you DON'T get full immunity. That could be the difference between the FLU and what felt like a bad cold, but it was actually the flu that you were already partially immune to. So if Connor is usually at home on Albuterol, say, with just a cold, but with the flu he'd be fighting for his life in the Hospital, even a partially effective vaccine might be the difference between albuterol at home and a VERY scary Hospital stay.\n" +
+        "Totally worth it to me.",
+            "Sorry but you and those you know personally are Drastically outnumbered by people who comment on any FB post or news article relating to the Flu shots. 1 out of 50 say they get it and do not get sick. 5 out of 50 say they are forced to by profession (mostly nurses). And 45 out of 50 say they used to get the shots regularly, and always got sick for days to weeks after. And then decided NOT to get the shot, and have not been sick since. These are not (theorists) these are everyday people. And \"Fool\" ehh? welp, remember that when you or a loved one gets a bad batch \"\"Sell. vaccine, people get sick, Sell more medicine...\"\" The never ending story of medicine.",
+            "A big one is hemp oil and there's a great documentary about it called \"Run From the Cure: The Rick Simpson Story\". Marijuana is one of the most interesting and unique plants out there. By turning the thick crystallized material that forms on the outside, into an oil and ingesting it, it's a very powerful medicine for cancer and more.\n" +
+            "\n" +
+            "\n" +
+            "There are two schools of thought on medicine, one I think is grossly incorrect, but anyways, one being naturopathic. Looking for natural sources to heal. Then there is allopathic, or western medicine. That the best idea for curing people is either cutting them open, pumping them with toxins, or hitting them with radiation.\n" +
+            "\n" +
+            "It's pretty obvious there is an agenda to keep people using the one that makes you sicker and a perpetual customer to Big Pharma.",
+            "While doing research about vaccinations, I came across an odd bit of logic about the Hep B vax: Get the vax because the disease can be transmitted to the infant during childbirth. Am I missing something or does that make no sense at all? If the kid gets Hep B, how is the vax going to do any good? You dont get the flu shot if you already have the flu, right? Also, wouldnt you be tested for Hep B when they test you for all the other stds early on in pregnancy?\n" +
+            "I guess I'm a little frustrated by all the *mis*information people try and give me. I am very secure in my decision to not vaccinate my dd, but people keep trying to change my mind",
+            "I bought my first mothering magazine in May 1976. Mothering Magazine was a leader in advocating for natural birth, home birth, breastfeeding, not circumcising, healthy eating, not vaccinating, and homeschooling. I subscribed and waited eagerly for each issue.\n" +
+            "One of the last articles in the print version followed a mother with postpartum depression recovering with antidepressants. A mother here was given drugs postpartum and she advocated against this practice. She was interviewed in Time Magazine  and testified against this practice before Congress about her postpartum experience on antidepressants. She was argued off of the Postpartum forum. So shameful for this to happen on a\n" +
+            "natural living\n" +
+            "board. She is a mom of two and a lawyer now in TX.\n" +
+            "Two to four years ago when the VOS forum was discussed, I was against it. The rest of the internet is open to pro-vaccination views. Why would any one want to come to mothering.com, the\n" +
+            "home of natural family living\n" +
+            ", and advocate for vaccination and legal coercion?\n" +
+            "I was also against mothering adding the Caesarean Birth forum, and there it is. I know it is a lifesaving procedure, but the rest of the internet universe is open to those moms who want to discuss the benefits.  I was on a thread on Birth and Beyond; when I mentioned that mothers may want a natural birth at home and want that choice to be honored, I was argued off the thread. I never thought I would have to defend a mother's choice for a natural home birth on mothering.com.\n" +
+            "Two years ago, I posted on the general Vaccinations forum that my pediatrician had died. He was honored in the print Mothering Magazine back page as a living treasure. I intended for the thread to honor him, but it was overrun by vaccine fans. End of the thread.\n" +
+            "If one allows coercive vaccination discussions, then allow discussions for the benefits of circumcision. Why not? There is evidence that circumcision is a good idea. Let us discuss it.\n" +
+            "If one allows coercive vaccination discussions, then allow discussions for the benefits of bottlefeeding. Why not? There is evidence that bottlefeeding is a good idea. Let us discuss it.\n" +
+            "If one allows coercive vaccination discussions, then allow discussions for the benefits of spanking. Why not? There is evidence that spanking is a good idea. Let us discuss it.\n" +
+            "My experience with the moderation on this forum is that I am ignored. I cannot put a moderator on ignore, but they sure ignore me. I flagged two posts last week and nothing came of that. When I have complained in the past, I was told to simply put the person on ignore, and I am ignored.  I got the message.\n" +
+            "TWWS has taken over. One of the moderators is an active member there, using the same name and avatar. We are doomed",
+            "They knew the polio vaccine was contaminated for YEARS before they did anything about it.\n" +
+            "In 1999 at the SV40 conference scientists admitted that \"SV-40 sequences\" remain in the poliovivus seed used in the currect polio vaccine (current in 1999) I realize that IPV is used now. My point is IMO many of the current vaccines are contaminated with chicken viruses, monkey viruses and DNA.\n" +
+            "If you want a good read pick up \"Fear of the Invisible\" by Janine Roberts.\n" +
+            "It is well researched and documented and very eye opening (and stomach turning).",
+            "TO EQUATE ABDUCTED HUMANS  WITH A SCAR FROM ALIENS , TO BABIES WITH VACCINATION DAMAGE SHOWS HOW DESPERATE YOU ARE - you sicko .\n" +
+            "This must be PR from the bowels of Pharma where you are not very far from.\n" +
+            "Its like the medial prostitutes that Big Tobacco paid to make up fantasy stories that smoking was not harmful.\n" +
+            "Autism is only one worry from 100 jabs into a child from birth to youth. The injection is just toxic filth.\n" +
+            "\n" +
+            "The extraordinary thing is that they dont even work - give you the diseases you are trying to avoid and many more to come , all for nothing - just stockholders profits.\n" +
+            "With pharma profits in the hundred of billions do you honestly think they would carry out proper studies.\n" +
+            "It is much easier for them to pay out billions in vaccine damage claims and keep making the money.",
+            "At 73 that Black woman is loosing her mind.  She took office in 2013 in a predominately black district.  She must have had a good line of BS to convince her black constituents that she was the best choice.\n" +
+            "\n" +
+            "By her latest statement about mandating marshal vaccinations, she is proving to be not the woman her people thought they were voting into office, because that women believes that blacks are not smart enough to take care of themselves such that the state must mandate their care.......  WHAT HORSE SH*T !!!",
+            "our county has a program for first time mothers where a home visit nurse comes by every 2 weeks and checks on me and ds, educates etc. I was thinking of lying to her about the rest of his vax's, but i think me and dh will be honest with her and discuss our findings etc with her to let her know we are making an informed decision.\n" +
+            "she already knows me and dh as the type of people who avoid things like drs etc, and she knows we always research stuff, and she used to be an ER nurse, so she knows all the stupid things drs do to make parents think the kid is getting \"cured\", and shes done the research to....so on things like antibiotics and fevers she agrees with us, which is uber cool! I hope she will still support us with the no vaxing.",
+            "Oh, so your here to defend the science of vaccines, but not the drug companies that MAKE all of the vaccines.. Genius! \n" +
+            "\n" +
+            "You are indirectly defending the drug companies whether you intend to do so or not since they're the ones pushing the science of vaccinations. We know that the theory of vaccinations itself has validity, as the Chinese were some of the first to discover and use it successfully in the 10th century AD, using variolation against smallpox. \n" +
+            "\n" +
+            "Vaccines are designed to fail, say Merck virologists - \n" +
+            "\n" +
+            "Merck falsified its mumps vaccine efficacy results, say former employees. Merck knowingly falsified its mumps vaccine test results to fabricate a \"95% efficacy rate\" say former Merck virologists Stephen Krahling and Joan Wlochowski in their shocking False Claims Act document.\n" +
+            "\n" +
+            "In order to do this, Merck spiked the blood test with animal antibodies in order to artificially inflate the appearance of immune system antibodies.\"\n" +
+            "\n" +
+            "(naturalnews. com/042864_measles_outbreak_mumps_vaccines_scientific_fraud.html#ixzz2ncDCLqwE)"];
+
+        $(document).ready(function () {
+
+            var i = 0;
+
+            $("input.form-check-input").change(function (e) {
+                validate();
+            });
+
+            $(window).resize(function () {
+                adjustSize()
+            });
+
+            $("#mturk_form").submit(function (e) {
+                var payload = {};
+                for (var k in data) {
+                    payload[k] = Object.values(data[k].items).map(function (x) {
+                        return $(x).text()
+                    });
+
+                }
+
+                payload["stories"] = [];
+                story_data.forEach((x, idx) => {
+                    var s_data = {};
+                    s_data["items"] = x.items.map(i => JSON.parse(i));
+                    s_data["point"] = $("#story-accordian .card:eq(" + idx + ") textarea.story_points_text").val();
+                    s_data["hascheck"] = $("#story-accordian .card:eq(" + idx + ") input[type='checkbox'][name='story_points']:checked").map((x, elt) => {
+                        return elt.value;
+                    }).get();
+                    payload["stories"].push(s_data)
+                });
+
+                form_data.push(payload);
+
+                console.log(JSON.stringify(form_data));
+                if (posts.length > 0) {
+                    e.preventDefault();
+                    advance();
+
+                } else {
+                    $("input[name='results']").val(JSON.stringify(form_data));
+
+                    //comment for production!
+                    $("form").replaceWith("<h1>Copy-paste and send to me!</h1><p>" + JSON.stringify(form_data) + "</p>");
+                }
+
+            });
+
+
+            $('[data-toggle="popover"]').popover();
+
+
+            $(".toselect").each(function (e) {
+                prepareInputPanel($(this).attr('id'))
+            });
+
+            $(".selector").each(function (e) {
+                $(this).mouseup(function (evt) {
+                    popupMenu(evt);
+                });
+            });
+
+
+            advance();
+
+
+        });
+
+        function adjustSize() {
+            console.log("Adjusting size to " + $("#selection").height());
+            $("#highlight-stack").height($("#selection").height());
+        }
+
+        function advance() {
+
+            $(".post-text").text(posts.shift());
+            $("#add-story-button").text("Add a story for this post");
+            active_story = -1;
+            adjustSize();
+
+
+            for (var k in data) {
+                //data[k].selectize.clearOptions();
+                data[k].selectize.clear(true);
+                data[k].selectize.clearCache();
+                data[k].items = {};
+
+
+                //data[k].selectize_story.clearOptions();
+                data[k].selectize_story.clear(true);
+                data[k].selectize_story.clearCache();
+                data[k].items = {}
+
+            }
+
+            story_data = [];
+            $("#story-accordian").empty()
+
+
+            $("#mturk_form").trigger("reset");
+
+            if (posts.length === 0) {
+                $("#form-submit").text("Submit")
+            }
+
+            if (form_data.length > 0) {
+                var position = $("section#post-analysis").offset().top;
+                $('html, body').animate({scrollTop: position}, 200);
+            }
+
+            validate()
+            //updateForm();
+            //updateFormView();
+        }
+
+        function contains_superstring(array, elt) {
+            console.log("Finding " + elt + " in " + array);
+            return !!array.find(x => {
+                return ((x === "char" && elt === "a character") ||
+                    (x === "act" && elt === "an event or act") ||
+                    (x === "event" && elt === "an event or act") ||
+                    (x === "consequence" && elt === "a consequence"))
+            })
+        }
+
+        function inspectStories($listcontainer, results) {
+            $listcontainer.empty();
+            var result = true;
+            for (const [name, s_data] of Object.entries(results)) {
+                var missing = [];
+                if (s_data.items.length === 0) {
+                    missing.push("all story elements")
+                } else {
+                    var types = ["a character", "an event or act", "a consequence"];
+                    var elts_missing = types.filter(x => {
+                            return !contains_superstring(s_data.items, x)
+                        }
+                    );
+                    if (elts_missing.length > 0) {
+                        missing.push(elts_missing.join(", "));
+                    }
+                }
+
+                if (!s_data.haspoint) {
+                    missing.push("a valid summary of the point")
+                }
+
+                if (!s_data.hascheck) {
+                    missing.push("one or more point categories")
+                }
+
+                var msg_txt = "Complete!";
+                if (missing.length > 0) {
+                    if (missing.length > 1) {
+                        missing[missing.length - 1] = "and " + missing[missing.length - 1];
+                    }
+                    missing[missing.length - 1] = missing[missing.length - 1] + ".";
+                    msg_txt = "<span class='text-danger'>Missing " + missing.join(", ") + "</span>";
+
+                }
+                $listcontainer.append("<li><b>" + name + "</b>: " + msg_txt + "</li>");
+                result = result && missing.length === 0;
+
+            }
+
+            return result;
+        }
+
+        function validate() {
+            var marked_up = $("#markup-ctrl div.item").length;
+            var result = true;
+            $("#validation-messages>*").hide();
+            if (story_data.length === 0) {
+                if (marked_up) {
+                    $("#no-story-with-elts").show()
+                } else {
+                    $("#no-story").show()
+                }
+
+            } else {
+                var results = [];
+                story_data.forEach((x, idx) => {
+                    var s_data = {};
+                    s_data["items"] = x.items.map(x => JSON.parse(x).type);
+                    s_data["haspoint"] = $("#story-accordian .card:eq(" + idx + ") textarea.story_points_text").val().length > 10;
+                    s_data["hascheck"] = $("#story-accordian .card:eq(" + idx + ") input[type='checkbox'][name='story_points']:checked").length > 0;
+                    results[$("#story-accordian .card:eq(" + idx + ") button[data-toggle='collapse']").text()] = s_data;
+
+                });
+                result = inspectStories($("#has-story"), results);
+                $("#has-story").show();
+            }
+
+            $("#form-submit").prop("disabled", !result)
+        }
+
+
+        function popupMenu(e) {
+
+            var sel = window.getSelection();
+            var range = sel.getRangeAt(0);
+
+            if (range.collapsed) {
+                return;
+            }
+
+            let $exampleModal = $('#exampleModal');
+            $exampleModal.modal();
+            //var adj_w = $('#exampleModal div.modal-dialog').width() / 2 + 10;
+            //var adj_h = $('#exampleModal div.modal-content').height() / 2 - 20;
+
+            //var w = -($(window).width() / 2) + e.clientX + adj_w;
+            //var h = -($(window).height() / 2) + e.clientY + adj_h;
+            var f = window.parent.document.getElementsByTagName("iframe")[0];
+            console.log(f);
+            fx = f.offsetLeft;
+            fy = f.offsetTop;
+
+            console.log("Offset of iframe "+fx+","+fy);
+            console.log("Event "+e.clientX+","+e.clientY);
+
+            $(".modal-dialog").css({'margin-top': e.clientY  - $("#exampleModal .modal-content").height()/2 - 20, 'margin-left': e.clientX+5});
+
+
+        }
+
+        function prepareInputPanel(textid) {
+
+
+            var s = $("#" + textid + "_ctrl").selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                create: function (input) {
+                    return {
+                        value: input,
+                        text: data[textid]["items"][input].text()
+
+                    }
+                },
+
+                onDelete: function (e) {
+                    data[textid]["items"][e].contents().unwrap();
+                    $("#" + textid).get(0).normalize();
+                    delete data[textid]["items"][e];
+                    data[textid].selectize_story.removeItem(e);
+                }
+
+            })[0].selectize;
+
+            s.on("change", function () {
+                validate();
+            });
+
+            var s_story = $("#" + textid + "_story_ctrl").selectize({
+                delimiter: ',',
+                persist: false,
+                create: function (input) {
+                    console.log("Create in s_story: " + input);
+                    return {
+                        value: input,
+                        text: data[textid]["items"][input].text()
+
+                    }
+                },
+
+                onItemRemove: function (value, $item) {
+                    story_data.forEach(x => {
+                        var type = $item.closest(".card").attr("data-story-type");
+                        var rep = JSON.stringify({"type": textid, "text": $item.text(), "orig": value});
+                        console.log("Removed: " + rep);
+
+                        x.removeItem(rep);
+                    })
+                }
+
+            })[0].selectize;
+
+
+            s_story.on("item_add", function (value, item) {
+
+                $(item).click(function (e) {
+                    if (getSelectedStoryIndex() < 0) {
+                        addStory();
+                    }
+                    addItemToStory($(this), value);
+
+                });
+            });
+
+            data[textid] = {selectize: s, items: {}, selectize_story: s_story};
+        }
+
+        function stylizeHighlightedString(targid) {
+
+            var sel = window.getSelection();
+
+            var range = sel.getRangeAt(0);
+            if (range.collapsed) return;
+
+            var x = [];
+
+            if (range.startContainer !== range.endContainer) {
+                x = getElementsBetweenTree(range.startContainer, range.endContainer);
+                x.forEach(function (e, i) {
+                    if (e.nodeName === "SPAN") {
+                        $(e).contents().unwrap();
+                    }
+                });
+            } else if (range.startContainer.parentElement.nodeName === "SPAN") {
+                //selection is in the same span element, do nothing
+                return
+            }
+
+            if (range.startContainer.parentElement.nodeName === "SPAN") {
+                range.setStart(range.startContainer, 0);
+                $(range.startContainer).unwrap();
+            }
+
+            if (!!range.startContainer.previousSibling &&
+                range.startContainer.previousSibling.nodeName === "SPAN" &&
+                range.startOffset === 0) {
+                var pc = range.startContainer.previousSibling;
+                range.setStart(pc.childNodes[0], 0);
+                $(pc).contents().unwrap();
+            }
+
+            if (range.endContainer.parentElement.nodeName === "SPAN") {
+                var ec = range.endContainer;
+                $(range.endContainer).unwrap();
+                range.setEnd(ec, ec.length);
+            }
+
+            if (!!range.endContainer.nextSibling &&
+                range.endContainer.nextSibling.nodeName === "SPAN" &&
+                range.endOffset === range.endContainer.length) {
+                var ec = range.endContainer.nextSibling;
+                var ec_text = ec.childNodes[0];
+                $(ec).contents().unwrap();
+                range.setEnd(ec_text, ec_text.length);
+
+            }
+
+            var selectionContents = range.extractContents();
+            var span = document.createElement("span");
+            span.appendChild(selectionContents);
+            span.setAttribute("class", "highlight");
+            range.insertNode(span);
+            $("#" + targid).get(0).normalize();
+            addItems(targid);
+            sel.removeAllRanges();
+
+
+        }
+
+        function addItems(targid) {
+            var $s = data[targid]["selectize"];
+            var $s_story = data[targid]["selectize_story"];
+            $s.clear(true);
+            $s.clearOptions();
+
+            $s_story.clear(true);
+            $s_story.clearOptions();
+            data[targid]["items"] = {};
+            $("#" + targid + " span").each(function (i, o) {
+                var key = "" + i;
+                data[targid]["items"][key] = $(this);
+                $s.createItem(key, true);
+                $s_story.createItem(key, true);
+
+            });
+        }
+
+
+        function getElementsBetweenTree(start, end) {
+            var ancestor = getCommonAncestor(start, end);
+
+            var before = [];
+            while (start.parentNode !== ancestor) {
+                var el = start;
+                while (el.nextSibling)
+                    before.push(el = el.nextSibling);
+                start = start.parentNode;
+            }
+
+            var after = [];
+            while (end.parentNode !== ancestor) {
+                var el = end;
+                while (el.previousSibling)
+                    after.push(el = el.previousSibling);
+                end = end.parentNode;
+            }
+            after.reverse();
+
+            while ((start = start.nextSibling) !== end)
+                before.push(start);
+            return before.concat(after);
+        }
+
+        // Get the innermost element that is an ancestor of two nodes.
+        //
+        function getCommonAncestor(a, b) {
+            var parents = $(a).parents().addBack();
+            while (b) {
+                var ix = parents.index(b);
+                if (ix !== -1)
+                    return b;
+                b = b.parentNode;
+            }
+            return null;
+        }
+
+
+        function selectOnLayer(layer) {
+            var sel = window.getSelection();
+            var range = sel.getRangeAt(0);
+
+
+            var orig_start = range.startOffset;
+            var orig_end = range.endOffset;
+
+            var startNode = null;
+            var startPos = -1;
+            var endNode = null;
+            var endPos = -1;
+
+            var offset = 0;
+
+
+            textNodesUnder($('#' + layer).get()[0]).forEach(function (item) {
+                if (!!!startNode) {
+                    if (offset <= orig_start && offset + item.length > orig_start) {
+                        startNode = item;
+                        startPos = orig_start - offset;
+                    }
+
+                }
+                if (offset <= orig_end && offset + item.length >= orig_end) {
+                    endNode = item;
+                    endPos = orig_end - offset;
+                }
+
+
+                offset += item.length;
+            });
+
+
+            sel.removeAllRanges();
+            var nr = document.createRange();
+            nr.setStart(startNode, startPos);
+            nr.setEnd(endNode, endPos);
+            sel.addRange(nr);
+
+            stylizeHighlightedString(layer)
+        }
+
+        function removeStory($elt) {
+
+            var x = $elt.closest("div.card").index();
+            story_data.splice(x, 1);
+            $elt.closest("div.card").remove();
+            if (active_story >= x) {
+                active_story--;
+            }
+            if (story_data.length > 0) {
+
+                $("#story-accordian .card:eq(" + active_story + ") .collapse").collapse('show');
+
+            } else {
+                $("#add-story-button").text("Add a story for this post");
+            }
+            updateSelection();
+            validate()
+
+        }
+
+        function textNodesUnder(el) {
+            var n, a = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+            while (n = walk.nextNode()) a.push(n);
+            return a;
+        }
+
+        function addStory() {
+            $("#story-accordian .collapse").collapse('hide');
+            $("div.story-control div.item.selected").removeClass("selected");
+
+            var ns = $("#story-template").clone();
+
+            ns.removeAttr("id");
+            var nid = "collapse_story" + (story_idx++);
+            ns.find("#storyHeading").attr("id", "heading_" + nid);
+            ns.find("button[data-toggle='collapse'").attr("data-target", "#" + nid).attr("aria-controls", nid).text("Story " + story_idx).click(function (evt) {
+
+                active_story = $(this).closest(".card").index();
+                updateSelection()
+            });
+            ns.find("#collapseTarget").attr("id", nid).attr("aria-labelledBy", "heading_" + nid);
+            ns.find("textarea").keypress(function () {
+                validate()
+            }).on('paste', function () {
+                setTimeout(function () {
+                    validate()
+                }, 100);
+            }).on('input', function() {
+                validate()
+            });
+
+            $('input')
+
+            ns.find("input.form-check-input").change(function () {
+                validate()
+            });
+            ns.show();
+            $("#story-accordian").append(ns);
+            var s = ns.find("textarea.story-composition").selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                create: function (input) {
+                    return {
+                        value: input,
+                        text: JSON.parse(input).text
+                    }
+                },
+
+                onDelete: function (value, $item) {
+                    var x = JSON.parse(value);
+                    var $sel = data[x.type].selectize_story;
+                    $sel.getItem(x.orig).removeClass("selected");
+
+                }
+
+            })[0].selectize;
+            s.on("item_add", function (value, $item) {
+                $item.addClass(JSON.parse(value).type)
+            });
+            s.on("change", function () {
+                validate()
+            });
+            story_data.push(s);
+            active_story = story_data.length - 1;
+            $("#add-story-button").text("Add another story for this post");
+            validate()
+
+        }
+
+        function updateSelection() {
+            $("div.story-control div.item.selected").removeClass("selected");
+            if (active_story > -1) {
+
+                story_data[active_story].items.forEach(_x => {
+                        var x = JSON.parse(_x);
+                        var $sel = data[x.type].selectize_story;
+                        $sel.getItem(x.orig).addClass("selected");
+                    }
+                )
+            }
+        }
+
+        function addItemToStory($item, value) {
+            var idx = getSelectedStoryIndex();
+            if (idx < 0) {
+                return;
+            }
+            var $s = story_data[idx];
+            $item.addClass("selected");
+            type = $item.closest(".card").attr("data-story-type");
+            $s.createItem(JSON.stringify({"type": type, "text": $item.text(), "orig": value}), true);
+            $("#story-accordian .card:eq(" + active_story + ") .collapse").collapse('show');
+
+        }
+
+        function addAllItems() {
+            if (getSelectedStoryIndex() < 0) {
+                addStory();
+            }
+            var idx = getSelectedStoryIndex();
+            var $s = story_data[idx];
+            for (const [key, x] of Object.entries(data)) {
+                x.selectize_story.items.forEach(i => {
+                    var $item = x.selectize_story.getItem(i)
+                    $item.addClass("selected");
+                    type = $item.closest(".card").attr("data-story-type");
+                    $s.createItem(JSON.stringify({"type": type, "text": $item.text(), "orig": i}), true);
+
+                });
+            }
+            $("#story-accordian .card:eq(" + active_story + ") .collapse").collapse('show');
+
+        }
+
+
+        function getSelectedStoryIndex() {
+            return active_story;
+        }
+
+
+    </script>
+</head>
+<body>
+<form action="https://www.mturk.com/mturk/externalSubmit" id="mturk_form" method="post" name="mturk_form">
+    <input type="hidden" name="results" value="">
+    <section class="container">
+        <div class="card">
+            <h4 class="card-title bg-primary text-white">&nbsp; Instructions</h4>
+            <div class="card-body">
+                <p class="card-text"><b>This is a qualifier HIT.</b> If you perform well, you will be granted a
+                    qualification that will enable you to participate in a larger batch of HITs (~1000). My goal is to
+                    pay about $12/hr for those, and each HIT should take about 3 minutes on average (with a lot of
+                    variance!). I will qualify up to 15 people.
+                </p>
+                <p class="card-text">In this HIT, you will be asked to follow the instructions in our <a
+                        href="https://docs.google.com/document/d/1c3QUWEkR-Hm0tc0ulhOzA6F5xBdy7SZDYKCiNkr1Q_M/edit?usp=sharing"
+                        target="_none">codebook</a> and code 10 posts (from online vaccine discussions) to determine
+                    whether or not they contain stories.</p>
+
+                <p class="card-text"><strong>What you will be looking for?</strong></p>
+
+                <p class="card-text">
+
+                    By our definition, <strong>a story</strong> is a sequence of one or more <strong>events</strong> and
+                    / or <strong>acts</strong>
+                    that are caused by or impact one or more <strong>characters</strong>, resulting in one or more
+                    <strong>consequences</strong>. In addition, a story must have an identifiable <strong>point</strong>.
+                </p>
+
+
+                <p class="card-text">
+                    An <strong>
+                        <a href="#" data-toggle="popover"
+                           tabindex="0"
+                           data-trigger="focus"
+                           data-container="body"
+                           data-placement="top"
+                           data-content="A time-bounded happening, that is not the result of an intentional act. An event may or may not be associated with a specific time. For example, compare 'people were killed in yesterday’s tornado' with 'tornadoes often cause massive destruction of life and property.' In both cases, the tornado is the event.">event</a></strong>
+
+                    is a time-bounded happening, that is not the result of an intentional act. An <strong>
+                    <a href="#"
+                       data-toggle="popover"
+                       tabindex="0"
+                       data-trigger="focus"
+                       data-container="body"
+                       data-placement="top"
+                       data-content="Something intentionally done by an actor. 'I fell asleep watching the movie' does not count as an act unless the actor meant to fall asleep. An act may be mental as in 'I decided not to get vaccinated.' Acts are intentional and events are unintentional or even random.">act</a></strong>
+                    is something intentionally done by an actor. In short, acts are intentional and events are
+                    not.
+                    A <strong>
+                        <a href="#" data-toggle="popover"
+                           tabindex="0"
+                           data-trigger="focus"
+                           data-container="body"
+                           data-placement="top"
+                           data-content="An actor that is made explicit in the story. An actor is any entity that might be described as having intentions and / or an internal state. For example, if 'the wind tried to blow me over,' the wind is both an actor and a character. Groups can be characters, as in 'the CIA was embarrassed by the revelations'. An actor does not have to be named to be a character, as in 'the old man scolded me'">
+                            character</a></strong>
+                    is an actor that is made explicit in the story. It does not have to be named.
+                    A <strong>
+                        <a href="#" data-toggle="popover"
+                           tabindex="0"
+                           data-trigger="focus"
+                           data-container="body"
+                           data-placement="top"
+                           data-content="A terminal event, act or change in the state of the world caused by another event or act. An event/act causes a consequence if the consequence would not have otherwise happened.  An event or act is a considered a consequence (rather than an event or act) when it does not cause anything else in the story.">
+                            consequence</a></strong>
+                    is an terminal event, act or change in the state of the world caused by another event or act.
+                    The <strong>
+                        <a href="#" data-toggle="popover"
+                           tabindex="0"
+                           data-trigger="focus"
+                           data-container="body"
+                           data-placement="top"
+                           data-content="An inference made by the reader about why the narrator chose to present the story. The point of some stories is to help explain how things in the world came to be. In others, the point of a story is to provide evidence or reinterpret/clarify a social interaction. Stories can have multiple points. A sequence of acts/events presented without an identifiable point is not a story by our definition.">
+                            point</a></strong>
+                    of a story is an inference made by the reader about why the narrator chose to present the story. <i>(Click
+                    on the underlined words to see more detailed descriptions.)</i>
+                </p>
+
+                <p class="card-text"><strong>Please be sure to examine both the <a
+                        href="https://docs.google.com/document/d/1c3QUWEkR-Hm0tc0ulhOzA6F5xBdy7SZDYKCiNkr1Q_M/edit?usp=sharing"
+                        target="_none">codebook</a> and <a
+                        href="https://docs.google.com/document/d/1BWx7YpiokSDpOXvhaTeKNhB-0Zi0ajaRiT2IVIo0Rus/edit?usp=sharing"
+                        target="_none">examples</a> before you begin coding!</strong>
+                </p>
+                <p class="card-text"><i>In case you encounter any issues during the coding, please contact us at
+                    lkrsova@syr.edu.</i></p>
+
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="post-analysis" class="container">
+        <div class="card">
+            <h4 id="gather-elements" class="card-title bg-primary text-white">&nbsp; 1. Analyze the post</h4>
+
+
+            <div class="card-body">
+                <p class="card-text"><i>Drag the mouse to select characters, acts, events, and consequences that you
+                    think are part of a story you find in the post. It is not necessary to select all instances of
+                    characters that are named
+                    more than once. It is ok if
+                    your selections may overlap (for instance, if an event overlaps an act). Your selections will
+                    appear in the panels below, and you can delete
+                    them
+                    there if you make a mistake. When you are done, scroll to the <a href="#assemble-stories">next
+                        section</a>.</i></p>
+                <br>
+                <section class="container">
+                    <div id="highlight-stack" class="outer">
+
+                        <div id="char-panel" class="inner">
+                            <h5 id="char" class="post-text toselect"></h5>
+                        </div>
+                        <div class="inner" id="act-panel">
+                            <h5 id="act" class="post-text toselect"></h5>
+                        </div>
+                        <div class="inner" id="event-panel">
+                            <h5 id="event" class="post-text toselect"></h5>
+                        </div>
+                        <div class="inner" id="consequence-panel">
+                            <h5 id="consequence" class="post-text toselect"></h5>
+                        </div>
+                        <div class="inner">
+                            <h5 id="selection" class="post-text selector"></h5>
+                        </div>
+                    </div>
+                    <br>
+
+                </section>
+                <section id="markup-ctrl" class="container row">
+                    <div class="col">
+                        <div class="card char">
+                            <div class="card-header">Characters</div>
+                            <div class="card-body">
+                                <textarea id="char_ctrl"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card act">
+                            <div class="card-header">Acts</div>
+                            <div class="card-body">
+                                <textarea id="act_ctrl"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card event">
+                            <div class="card-header">Events</div>
+                            <div class="card-body">
+                                <textarea id="event_ctrl"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card consequence">
+                            <div class="card-header">Consequences</div>
+                            <div class="card-body">
+                                <textarea id="consequence_ctrl"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </section>
+            </div>
+        </div>
+    </section>
+    <section id="story-creation" class="container">
+        <div class="card">
+            <h4 id="assemble-stories" class="card-title bg-primary text-white">&nbsp; 2. Assemble stories</h4>
+
+
+            <div class="card-body">
+                <p class="card-text"><i>Select elements that are a part of a story you found in the post from the panels
+                    on the left. If you
+                    need
+                    to change which elements are available, scroll back up to the <a
+                            href="#gather-elements">analysis section</a>. If there is more than one story in the post,
+                    you can
+                    add additional stories by clicking "add another story." Stories appear in the accordion on the
+                    right. Make sure to fill in the point of each story you found. When you are done (or in some cases
+                    if you didn't find any
+                    stories), scroll down to <a href="#review-work">review your work</a>.</i>
+                </p>
+
+                <br>
+                <div id="story-elements" class="row">
+                    <div class="col-sm-4 story-control">
+
+                        <div class="card char" data-story-type="char">
+                            <div class="card-header">
+                                <h6>Characters</h6>
+                            </div>
+                            <div class="card-body">
+                                <textarea id="char_story_ctrl" class="char"></textarea>
+                            </div>
+                        </div>
+                        <div class="card act" data-story-type="act">
+                            <div class="card-header">
+                                <h6>Acts</h6>
+                            </div>
+                            <div class="card-body">
+                                <textarea id="act_story_ctrl" class="act"></textarea>
+                            </div>
+                        </div>
+                        <div class="card event" data-story-type="event">
+                            <div class="card-header">
+                                <h6>Events</h6>
+                            </div>
+                            <div class="card-body">
+                                <textarea id="event_story_ctrl" class="event"></textarea>
+                            </div>
+                        </div>
+                        <div class="card consequence" data-story-type="consequence">
+                            <div class="card-header">
+                                <h6>Consequences</h6>
+                            </div>
+                            <div class="card-body">
+                                <textarea id="consequence_story_ctrl" class="consequence"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-block btn-outline-primary mt-1" onclick="addAllItems();">
+                            Add all -->
+                        </button>
+
+                    </div>
+                    <div class="col">
+                        <div class="accordion" id="story-accordian">
+
+                        </div>
+
+
+                        <button id="add-story-button" type="button" class="btn btn-block btn-outline-primary mt-1"
+                                onclick="addStory();">Add a
+                            story for this post
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="complete" class="container">
+        <div class="card">
+            <h4 id="review-work" class="card-title bg-primary text-white">&nbsp; 3. Review and submit</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div id="validation-messages" class="col-md-8">
+                    <p id="no-story" class="font-italic">No stories identified.</p>
+                    <p id="no-story-with-elts" class="font-italic" style="display:none">No stories identified, but you
+                        have
+                        selected at least one story element. You can still submit the form, but make sure that's what
+                        you meant to
+                        do!</p>
+                    <ul id="has-story" style="display:none"></ul>
+                </div>
+                <div class="col-md-4">
+                    <button id="form-submit" type="submit" name="formSubmit"
+                            class="btn btn-lg btn-block btn-primary"
+                            disabled="disabled">Advance to next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+<div id="story-template" class="card" style="display: none">
+    <div class="card-header" id="story">
+        <div class="row">
+            <div class="col">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTarget"
+                            aria-expanded="true" aria-controls="collapseTarget  ">
+                        Story Number
+                    </button>
+                </h2>
+            </div>
+            <div class="col-sm-2">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" onclick="removeStory($(this))">Remove</button>
+                </h2>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="collapseTarget" class="collapse show" aria-labelledby="headingOne" data-parent="#story-accordian">
+        <div class="card-body">
+            <p class="card-text font-italic">Add story elements by selecting items from on the left.</p>
+            <textarea class="story-composition"></textarea>
+
+            <div id="story-point" class="card-body">
+
+                <p class="card-text font-italic">What is the <a
+                        href="https://urldefense.proofpoint.com/v2/url?u=https-3A__docs.google.com_document_d_1c3QUWEkR-2DHm0tc0ulhOzA6F5xBdy7SZDYKCiNkr1Q-5FM_edit-23heading-3Dh.ewmki7n7rw27&d=DwMGAg&c=nE__W8dFE-shTxStwXtp0A&r=NT-zDZBmNZOHIUuE1uJVSw&m=iRuSYO3K_NQP0gOkPOZxoJXoWfnr3G9dzbEsGq68OSA&s=CqZELHV26uyn6FMlz3ObbYDSUWYvJjbUzCFMiGF2BmY&e="
+                        target="_blank"><u>point</u></a> of the story (1 sentence or less)?</p>
+                <textarea rows="3" class="story_points_text form-control" name="story_points_text"
+                          placeholder="Summarize the point of the story here"></textarea>
+                <br>
+                <p class="card-text font-italic"> Which of the following categories describe the key story <a
+                        href="https://urldefense.proofpoint.com/v2/url?u=https-3A__docs.google.com_document_d_1c3QUWEkR-2DHm0tc0ulhOzA6F5xBdy7SZDYKCiNkr1Q-5FM_edit-23heading-3Dh.ewmki7n7rw27&d=DwMGAg&c=nE__W8dFE-shTxStwXtp0A&r=NT-zDZBmNZOHIUuE1uJVSw&m=iRuSYO3K_NQP0gOkPOZxoJXoWfnr3G9dzbEsGq68OSA&s=CqZELHV26uyn6FMlz3ObbYDSUWYvJjbUzCFMiGF2BmY&e="
+                        target="_blank"><u>points</u></a> you found? (Select one or more)</p>
+
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_explain_something">
+                        <input type="checkbox" class="form-check-input" id="story_points_explain_something"
+                               name="story_points" value="story_points_explain_something">To
+                        explain
+                        how something came to be
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_reinterpret_clarify">
+                        <input type="checkbox" class="form-check-input" id="story_points_reinterpret_clarify"
+                               name="story_points" value="story_points_reinterpret_clarify">To
+                        reinterpret or clarify an ongoing social interaction
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_provide_evidence">
+                        <input type="checkbox" class="form-check-input" id="story_points_provide_evidence"
+                               name="story_points" value="story_points_provide_evidence">To provide
+                        evidence
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_explain_relationship">
+                        <input type="checkbox" class="form-check-input" id="story_points_explain_relationship"
+                               name="story_points" value="story_points_explain_relationship">To
+                        explain relationships between events
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_provide_example">
+                        <input type="checkbox" class="form-check-input" id="story_points_provide_example"
+                               name="story_points" value="story_points_provide_example">To provide
+                        an
+                        example of good or bad behavior
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_suggest_character">
+                        <input type="checkbox" class="form-check-input" id="story_points_suggest_character"
+                               name="story_points" value="story_points_suggest_character">To
+                        support
+                        or impugn the character of an actor
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="story_points_other">
+                        <input type="checkbox" class="form-check-input" id="story_points_other"
+                               name="story_points" value="story_points_other">Other
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action" id="list-home-list"
+                   data-dismiss="modal"
+                   href="#list-home" role="tab" aria-controls="home" onclick="selectOnLayer('char');">Character</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list"
+                   data-dismiss="modal"
+                   href="#list-profile" role="tab" aria-controls="profile" onclick="selectOnLayer('act');">Act</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list"
+                   data-dismiss="modal"
+                   href="#list-messages" role="tab" aria-controls="messages"
+                   onclick="selectOnLayer('event');">Event</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list"
+                   data-dismiss="modal"
+                   href="#list-settings" role="tab" aria-controls="settings"
+                   onclick="selectOnLayer('consequence');">Consequence</a>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+    body {
+        font-size: 14pt;
+    }
+
+    a[data-toggle="popover"] {
+        text-decoration: underline;
+        font-weight: bold;
+
+    }
+
+    #exampleModal div.modal-content {
+        width: auto;
+    }
+
+    #exampleModal a.list-group-item {
+        padding: .2rem .5rem;
+    }
+
+    #markup-ctrl .char .selectize-input > div,
+    #story-elements .char .selectize-input > div,
+    #story-accordian .selectize-input > div.item.char {
+        background-color: rgba(250, 128, 114, 0.4);
+    }
+
+
+    #markup-ctrl .act .selectize-input > div,
+    #story-elements .act .selectize-input > div,
+    #story-accordian .selectize-input > div.item.act {
+        background-color: rgba(0, 255, 255, 0.4);
+    }
+
+    #markup-ctrl .event .selectize-input > div,
+    #story-elements .event .selectize-input > div,
+    #story-accordian .selectize-input > div.item.event {
+        background-color: rgba(152, 251, 152, 0.4);
+    }
+
+    #markup-ctrl .consequence .selectize-input > div,
+    #story-elements .consequence .selectize-input > div,
+    #story-accordian .selectize-input > div.item.consequence {
+        background-color: rgba(147, 112, 219, 0.4);
+    }
+
+    #story-elements .selectize-input > div.selected {
+        border: 2px;
+        border-color: blue;
+        border-style: solid;
+    }
+
+
+    #markup-ctrl .card-body {
+        padding-top: 10px;
+        padding-right: 5px;
+        padding-left: 5px;
+        padding-bottom: 5px;
+    }
+
+    #markup-ctrl .col {
+        padding-top: 15px;
+        padding-right: 5px;
+        padding-left: 15px;
+        padding-bottom: 15px;
+    }
+
+
+    .hover {
+        text-decoration: underline;
+
+    }
+
+    .hover:hover {
+        cursor: help;
+    }
+
+    .toselect {
+        color: transparent;
+    }
+
+    /*textarea {*/
+    /*    -webkit-box-sizing: border-box;*/
+    /*    -moz-box-sizing: border-box;*/
+    /*    box-sizing: border-box;*/
+
+    /*    width: 400px;*/
+    /*    max-width: 100%;*/
+    /*}*/
+
+    div.inner {
+        position: absolute;
+    }
+
+    #char .highlight {
+        background-color: rgba(250, 128, 114, 0.4);
+    }
+
+
+    #event .highlight {
+        background-color: rgba(152, 251, 152, 0.4);
+
+    }
+
+    #act .highlight {
+        background-color: rgba(0, 255, 255, 0.4);
+
+    }
+
+    #consequence .highlight {
+        background-color: rgba(147, 112, 219, 0.4);
+
+
+    }
+
+</style>
+</body>
+</html>
