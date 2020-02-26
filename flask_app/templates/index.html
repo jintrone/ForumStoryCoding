@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+    {% with messages=get_flashed_messages() %}
+      {% if messages %}
+        <ul class="bg-warning">
+          {% for message in messages %}
+            <li>{{ message|safe }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap.css')}}""">
+    <script type = "text/javascript"
+         src = "{{ url_for('static', filename = 'jquery.js') }}" ></script>
+  </head>
+  <body>
+    <div class="container">
+      <section class="content" id="contents">
+        <h2 class="display-3">Welcome to the coding page</h2>
+
+          <br>
+          {% if not current_user.is_authenticated %}
+          <br>
+          <p>Please login to start the application further. <br/>
+          <br/>
+          If you have any problem with login, you <strong>must</strong> contact someone who can help you.</p>
+            <a class="btn btn-lg btn-info btn-space" href="/login">Login</a>
+            <br>
+            <br>
+            <p>If you are new user you will have to register.</p>
+            <br>
+
+            <a class="btn btn-lg btn-info btn-space" href="/register">Register</a>
+          {% endif%}
+
+            {% if current_user.is_authenticated %}
+              <br>
+              <br>
+              <br>
+              <a class="btn btn-lg btn-info btn-space" href="/search_thread">Search</a>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <a class="btn btn-lg btn-danger" href="/logout">Log out</a>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            {% endif%}
+
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="btn btn-lg btn-warning btn-space" href="contact">Contact</a>
+          <br>
+          <br>
+          <br>
+          <p class="text-danger", style="font-size:25px"><b> Please remember to LOGOUT!!!</b></p>
+
+    </section>
+    </div>
+  </body>
+</html>

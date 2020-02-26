@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Threads</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap.css')}}""">
+  <script type = "text/javascript"
+  src = "{{ url_for('static', filename = 'jquery.js') }}" ></script>
+  <script type="text/javascript">
+    $( document ).ready(function(){
+
+      function submit_form(){
+        $.ajax({
+          type: 'POST',
+          url: "{{url_for('submit_code')}}",
+          data: $('form').serialize() + "&thread=" + {{result.thread_id}},
+          success: function(data) {},
+          complete: function() {
+            setTimeout(submit_form, 300000);
+          }
+        });
+      };
+      submit_form();
+
+      $("button[class='btn btn-success btn-sm text-light']").click(function () {
+        console.log('add click event')
+        value = $(this).parents().eq(4).attr('class')
+        console.log(value)
+        console.log(value === undefined)
+        if (value === undefined){
+          alert('This is reply to the article.')
+        }
+        else{
+        $(this).parents().eq(3).children().hide(1000);
+        $(this).parents().eq(4).css({"color": "green", "border": "5px solid red", "background-color":"aliceblue"});
+      }
+      });
+
+      $("button[class='btn btn-info btn-sm text-light']").click(function () {
+        console.log('show click event')
+        console.log($(this).parents().eq(2).attr('class'))
+        $(this).parents().find('*').css({"color": "black", "border":"",  "background-color":""});
+        $(this).parents().eq(2).find('.list-group>.list-group').slideDown()//.show(1000);
+
+      });
+
+    });
+  </script>
+  
+</head>
+
+<body>
+  <br>
+  <a class="btn btn-lg btn-danger float-right mr-5" href="/logout">Log out</a>
+  <a class="btn btn-lg btn-info float-left ml-3" href="/">Home Page</a>
+
+  <br>
+  <br>
+
+  <form action="{{url_for('submit_code')}}" method="post">
+    <div class="ml-2 mr-2 mt-3 mb-3">
+
+      <input type="hidden" name="thread" value="{{result.thread_id}}">
+      <!-- <p>{{ result.thread_id }}</p> -->
+      <p>{{ result.header|safe }}</p>
+      <p>{{ result.body|safe }}</p>
+
+      {% for post in result.posts recursive %}
+      <ul class="list-group">
+        <li class="list-group-item pt-0 pb-1 pl-4 pr-0">
+          <div class="blockquote-footer">
+            <b>Author</b>: {{ post.name}} &nbsp;&nbsp;&nbsp; <b>Date</b>: {{ post.creation_date}}
+             &nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success btn-sm text-light">Find the original post replied to and collapse others</button> &nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-info btn-sm text-light">Show all the replies for this post</button>
+          </div>
+          <div>
+            {{ post.content|safe }}
+            <div class='row'>
+              <fieldset class="border p-1" style="background-color:ivory;">
+
+                <legend class="w-auto" style="font-size:15px; font-weight:500;">Position Posts</legend>
+
+                <div class="form-check-inline">
+                  <input type="radio" name="codes_{{ post.id}}" class="form-check-input" id="formCheck1_{{ post.id}}" value="Anti-vax"
+                  {% if post.coded == "Anti-vax"%}checked{% endif %}>
+                  <label class="form-check-label" for="formCheck1_{{ post.id}}">Anti-vax</label>
+                </div>
+
+                <div class="form-check-inline">
+                  <input type="radio" name="codes_{{ post.id}}" class="form-check-input" id="formCheck2_{{ post.id}}" value="Vaccine hesitant"
+                  {% if post.coded == "Vaccine hesitant"%}checked{% endif %}>
+                  <label class="form-check-label" for="formCheck2_{{ post.id}}">Vaccine hesitant</label>
+                </div>
+
+                <div class="form-check-inline">
+                  <input type="radio" name="codes_{{ post.id}}" class="form-check-input" id="formCheck3_{{ post.id}}" value="Pro-vax"
+                  {% if post.coded == "Pro-vax"%}checked{% endif %}>
+                  <label class="form-check-label" for="formCheck3_{{ post.id}}">Pro-vax</label>
+                </div>
+              </fieldset>
+              &nbsp;&nbsp;&nbsp;
+              <fieldset class="border p-1" style="background-color:ivory;">
+
+                <legend class="w-auto" style="font-size:15px; font-weight:500;">Leaning Posts</legend>
+
+
+                <div class="form-check-inline">
+                  <input type="radio" name="codes_{{ post.id}}" class="form-check-input" id="formCheck4_{{ post.id}}" value="Against vaccines"
+                  {% if post.coded == "Against vaccines"%}checked{% endif %}>
+                  <label class="form-check-label" for="formCheck4_{{ post.id}}">Against vaccines</label>
+                </div>
+
+
+                <div class="form-check-inline">
+                  <input type="radio" name="codes_{{ post.id}}" class="form-check-input" id="formCheck5_{{ post.id}}" value="For vaccines"
+                  {% if post.coded == "For vaccines"%}checked{% endif %}>
+                  <label class="form-check-label" for="formCheck5_{{ post.id}}">For vaccines</label>
+                </div>
+
+              </fieldset>
+              &nbsp;&nbsp;&nbsp;
+
+              <fieldset class="border p-1" style="background-color:ivory;">
+
+                <legend class="w-auto" style="font-size:15px; font-weight:500;">Not Applicable &nbsp;&nbsp;&nbsp;</legend>
+
+                <div class="form-check-inline">
+                  <input type="radio" name="codes_{{ post.id}}" class="form-check-input" id="formCheck6_{{ post.id}}" value="NA"
+                  {% if post.coded == "NA"%}checked{% endif %}>
+                  <label class="form-check-label" for="formCheck6_{{ post.id}}">NA</label>
+                </div>
+              </fieldset>
+            </div>
+
+          </div>
+            {% if post.replies %}
+            <ul class="list-group">
+              {{ loop(post.replies) }}
+            </ul>
+            {% endif %}</li>
+          </ul>
+          {% endfor%}
+          <br>
+          <div>
+            <button type="submit" name="formSubmit" class="btn btn-lg btn-info float-right w-50 ml-5 mr-5"> Submit</button>
+          </div>
+        </div>
+
+      </form>
+
+    </body>
+    </html>

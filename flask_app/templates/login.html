@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  {% with messages=get_flashed_messages() %}
+    {% if messages %}
+      <ul class="bg-warning">
+        {% for message in messages %}
+          <li>{{ message|safe }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'bootstrap.css')}}""">
+  <script type = "text/javascript"
+  src = "{{ url_for('static', filename = 'jquery.js') }}" ></script>
+</head>
+<body>
+  <div id="content">
+    <br>
+    <a class="btn btn-lg btn-info float-right mr-5" href="/">Home Page</a>
+
+    <br>
+    <br>
+
+    {% block content %}
+    <form action="{{url_for('login_handler')}}" method="post">
+      <div class="col-3">
+        {{ form.username.label}}
+        {{ form.username(class="form-control")}}
+      </div>
+      <div class="col-3">
+        {{ form.password.label}}
+        {{ form.password(class="form-control")}}
+      </div>
+      <br>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          {{ form.login(class="btn btn-primary")}}
+        </div>
+      </div>
+    </form>
+  </div>
+  {% endblock %}
+</body>
+</html>

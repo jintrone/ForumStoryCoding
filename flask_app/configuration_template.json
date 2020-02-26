@@ -1,0 +1,10 @@
+{
+  "database_config": {
+    "user": "USERNAME",
+    "password": "PASSWORD",
+    "host_name": "HOSTNAME",
+    "db": "DBNAME"
+  },
+  "host_name": "localhost",
+  "port_number": 5000
+}
